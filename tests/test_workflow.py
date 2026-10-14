@@ -20,12 +20,11 @@ def sample_ticket(ticket_id, priority="medium"):
 
 class TestTicketAssignment(unittest.TestCase):
 
-    def test_assign_staff_member(self):
+    def test_open_ticket_can_start_work(self):
         ticket = sample_ticket("T001")
-
         assign_ticket(ticket, "Alex")
-
-        self.assertEqual(ticket["assigned_to"], "Alex")
+        update_status(ticket, "in_progress")
+        self.assertEqual(ticket["status"], "in_progress")
 
     def test_empty_staff_name_rejected(self):
         ticket = sample_ticket("T001")
@@ -33,15 +32,27 @@ class TestTicketAssignment(unittest.TestCase):
         with self.assertRaises(ValueError):
             assign_ticket(ticket, " ")
 
+    def test_resolved_ticket_cannot_be_reassigned(self):
+        ticket = sample_ticket("T001")
+        ticket["status"] = "resolved"
+        ticket["assigned_to"] = "Alex"
+
+        original_ticket = ticket.copy()
+
+        with self.assertRaises(ValueError):
+            assign_ticket(ticket, "Jordan")
+
+        self.assertEqual(ticket, original_ticket)
+
+
 
 class TestStatusWorkflow(unittest.TestCase):
-
     def test_open_ticket_can_start_work(self):
         ticket = sample_ticket("T001")
-
+        assign_ticket(ticket, "Alex")
         update_status(ticket, "in_progress")
-
         self.assertEqual(ticket["status"], "in_progress")
+
 
     def test_ticket_can_be_resolved(self):
         ticket = sample_ticket("T001")
@@ -64,6 +75,16 @@ class TestStatusWorkflow(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             update_status(ticket, "resolved")
+
+    def test_unassigned_ticket_cannot_start_work(self):
+        ticket = sample_ticket("T001")
+        original_ticket = ticket.copy()
+
+        with self.assertRaises(ValueError):
+            update_status(ticket, "in_progress")
+
+        self.assertEqual(ticket, original_ticket)
+
 
 
 class TestPriorityQueue(unittest.TestCase):
