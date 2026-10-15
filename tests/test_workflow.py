@@ -28,11 +28,8 @@ def sample_ticket(ticket_id, priority="medium"):
         "id": ticket_id,
         "title": f"Test ticket {ticket_id}",
         "category": "Network",
-<<<<<<< HEAD
         "urgency": "medium",
         "affected_users": 2,
-=======
->>>>>>> 34f314e98ddcee8ac0a058d03c5116c4c13fd717
         "priority": priority,
         "status": "open",
         "assigned_to": None,
@@ -321,7 +318,6 @@ class TestPublicAddNote(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-<<<<<<< HEAD
 
 
 
@@ -397,5 +393,3 @@ def test_invalid_ticket_id_rejected(self):
         )
 
         self.assertEqual(note["note_id"], "N001")
-=======
->>>>>>> 34f314e98ddcee8ac0a058d03c5116c4c13fd717

@@ -13,12 +13,9 @@ from campusflow.storage import (
     save_tickets,
     get_next_ticket_id,
 )
-<<<<<<< HEAD
-=======
 from campusflow.search import search_tickets
 from campusflow.quiz import run_quiz
 from campusflow.storage import load_tickets, save_tickets, get_next_ticket_id
->>>>>>> 34f314e98ddcee8ac0a058d03c5116c4c13fd717
 
 DATA_FILE = "data/tickets.json"
 
@@ -304,16 +301,13 @@ def show_report(tickets):
     for category, count in report["by_category"].items():
         print(f"  {category}: {count}")
 
-<<<<<<< HEAD
     print(f"\nUnresolved tickets: {report['unresolved_count']}")
     print(f"Resolved tickets: {report['resolved_count']}")
     print(f"Resolution percentage: {report['resolution_percentage']:.1f}%")
 
-=======
     print(f"\nUnresolved tickets: {report['unresolved']}")
     print(f"Resolved tickets: {report['resolved']}")
     print(f"Resolution percentage: {report['resolution_percentage']:.2f}%")
->>>>>>> 34f314e98ddcee8ac0a058d03c5116c4c13fd717
 
 def show_menu():
     """Display the main menu."""
@@ -325,13 +319,10 @@ def show_menu():
     print("4. Update ticket status")
     print("5. View priority queue")
     print("6. Generate ticket report")
-<<<<<<< HEAD
     print("7. Add a follow-up note")
     print("8. View ticket notes")
-=======
     print("7. Search tickets")
     print("8. Engineering Understanding Check")
->>>>>>> 34f314e98ddcee8ac0a058d03c5116c4c13fd717
     print("9. Save tickets")
     print("10. Exit")
     print("================================")
@@ -372,7 +363,6 @@ def main():
         elif choice == "6":
             show_report(tickets)
         elif choice == "7":
-<<<<<<< HEAD
             add_note_to_existing_ticket(tickets)
 
         elif choice == "8":
@@ -382,26 +372,20 @@ def main():
             save_current_tickets(tickets)
             print("Tickets saved.")
 
-=======
             search_existing_tickets(tickets)
         elif choice == "8":
             run_quiz()
         elif choice == "9":
             save_current_tickets(tickets)
             print("Save requested.")
->>>>>>> 34f314e98ddcee8ac0a058d03c5116c4c13fd717
         elif choice == "10":
             save_current_tickets(tickets)
             print("Tickets saved. Goodbye!")
             break
-<<<<<<< HEAD
-=======
         else:
             print("Invalid choice. Please enter a number from 1 to 10.")
->>>>>>> 34f314e98ddcee8ac0a058d03c5116c4c13fd717
 
-        else:
-            print("Invalid choice. Please enter a number from 1 to 10.")
+
        
 
 if __name__ == "__main__":
