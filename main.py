@@ -5,6 +5,7 @@ from campusflow.workflow import (
     assign_ticket, update_status, get_priority_queue, generate_report,
 )
 from campusflow.search import search_tickets
+from campusflow.quiz import run_quiz
 from campusflow.storage import load_tickets, save_tickets, get_next_ticket_id
 
 DATA_FILE = "data/tickets.json"
@@ -202,8 +203,9 @@ def show_menu():
     print("5. View priority queue")
     print("6. Generate ticket report")
     print("7. Search tickets")
-    print("8. Save tickets")
-    print("9. Exit")
+    print("8. Engineering Understanding Check")
+    print("9. Save tickets")
+    print("10. Exit")
     print("================================")
 
 def main():
@@ -220,7 +222,7 @@ def main():
 
     while True:
         show_menu()
-        choice = input("Choose an option (1-9): ").strip()
+        choice = input("Choose an option (1-10): ").strip()
 
         if choice == "1":
             create_new_ticket(tickets)
@@ -238,14 +240,16 @@ def main():
         elif choice == "7":
             search_existing_tickets(tickets)
         elif choice == "8":
+            run_quiz()
+        elif choice == "9":
             save_current_tickets(tickets)
             print("Save requested.")
-        elif choice == "9":
+        elif choice == "10":
             save_current_tickets(tickets)
             print("Tickets saved. Goodbye!")
             break
         else:
-            print("Invalid choice. Please enter a number from 1 to 9.")
+            print("Invalid choice. Please enter a number from 1 to 10.")
 
 
 if __name__ == "__main__":
