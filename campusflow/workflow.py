@@ -154,8 +154,8 @@ def get_priority_queue(tickets):
         ),
     )
 
-
 def generate_report(tickets):
+<<<<<<< HEAD
     """Summarize tickets by status, priority, and category."""
 
     categories = ("Network", "Hardware", "Software", "Other")
@@ -174,11 +174,27 @@ def generate_report(tickets):
         },
         "unresolved_count": 0,
         "resolved_count": 0,
+=======
+    """Generate ticket statistics for CampusFlow."""
+
+    statuses = ("open", "in_progress", "resolved")
+    priorities = ("critical", "high", "medium", "low")
+    categories = ("Network", "Hardware", "Software", "Other")
+
+    report = {
+        "total": len(tickets),
+        "by_status": {status: 0 for status in statuses},
+        "by_priority": {priority: 0 for priority in priorities},
+        "by_category": {category: 0 for category in categories},
+        "unresolved": 0,
+        "resolved": 0,
+>>>>>>> 34f314e98ddcee8ac0a058d03c5116c4c13fd717
         "resolution_percentage": 0.0,
     }
 
     for ticket in tickets:
         status = ticket["status"]
+<<<<<<< HEAD
 
         report["by_status"][status] += 1
         report["by_priority"][ticket["priority"]] += 1
@@ -193,5 +209,24 @@ def generate_report(tickets):
         report["resolution_percentage"] = (
             report["resolved_count"] / report["total"]
         ) * 100
+=======
+        priority = ticket["priority"]
+        category = ticket["category"]
+
+        report["by_status"][status] += 1
+        report["by_priority"][priority] += 1
+        report["by_category"][category] += 1
+
+        if status == "resolved":
+            report["resolved"] += 1
+        else:
+            report["unresolved"] += 1
+
+    if report["total"] > 0:
+        report["resolution_percentage"] = round(
+            report["resolved"] / report["total"] * 100,
+            2,
+        )
+>>>>>>> 34f314e98ddcee8ac0a058d03c5116c4c13fd717
 
     return report
