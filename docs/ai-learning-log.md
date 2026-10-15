@@ -1,12 +1,43 @@
-Interaction #1 — Python exceptions
+Interaction #1 — Python Exceptions
 
-Problem: I wanted to understand how Python handles invalid input.
-Initial understanding: Write what you understood before this experiment.
-Prompt to AI: I asked for a small example explaining try, except, and ValueError.
-Experiment: I converted "25" and "hello" to integers inside separate exception-handling blocks.
-Verification: Record the output you actually observed.
-Decision: Explain whether the experiment confirmed your understanding.
-What I can now explain: Describe in your own words why the second conversion fails and how except handles it.
+**Problem:**
+I wanted to understand how Python handles invalid input and how
+`try`, `except`, and `ValueError` work together.
+
+**My initial understanding:**
+I knew that `int()` could convert text containing a whole number
+into an integer, but I wanted to understand what happens when the
+text cannot be converted.
+
+**Prompt to AI:**
+Explain Python's `try`, `except`, and `ValueError` using a small
+example that converts valid and invalid text into integers.
+
+**Useful AI guidance:**
+The `try` block contains code that might raise an exception.
+The `except ValueError` block handles an invalid conversion so
+the program can respond instead of terminating unexpectedly.
+
+**My independent experiment:**
+I wrote `experiment_exceptions.py`. The program tries to convert
+`"25"` and `"hello"` into integers, using separate exception
+handling blocks.
+
+**Verification result:**
+When I ran the experiment, `"25"` was converted into the integer
+25. Converting `"hello"` raised a `ValueError`, and the exception
+handler printed an error message.
+
+**Decision:**
+The experiment confirmed that valid numeric text can be converted
+into an integer, while invalid numeric text needs to be handled.
+
+**What I can now explain without AI:**
+The `try` block attempts an operation that could fail. If converting
+the text raises `ValueError`, Python runs the matching `except`
+block. This allows the program to handle invalid input gracefully.
+
+**Related file:** `experiment_exceptions.py`
 
 
 

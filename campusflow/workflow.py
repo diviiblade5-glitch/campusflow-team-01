@@ -4,6 +4,94 @@
 VALID_STATUSES = {"open", "in_progress", "resolved"}
 
 
+def validate_note(author, message):
+    """Validate and normalize note author and message."""
+
+    if not isinstance(author, str) or not author.strip():
+        raise ValueError("Note author cannot be empty.")
+
+    if not isinstance(message, str):
+        raise ValueError("Note message must be text.")
+
+    message = message.strip()
+
+    if not 5 <= len(message) <= 300:
+        raise ValueError(
+            "Note message must contain between 5 and 300 characters."
+        )
+
+    return {
+        "author": author.strip(),
+        "message": message,
+    }
+
+
+def add_note_to_ticket(tickets, ticket_id, author, message):
+    """Validate and add a note to an existing ticket."""
+
+    if not isinstance(ticket_id, str) or not ticket_id.strip():
+        raise ValueError("Ticket ID cannot be empty.")
+
+    wanted_id = ticket_id.strip().upper()
+
+    ticket = next(
+        (
+            item for item in tickets
+            if item.get("id", "").upper() == wanted_id
+        ),
+        None,
+    )
+
+    if ticket is None:
+        raise ValueError(f"Ticket {wanted_id} was not found.")
+
+    if ticket["status"] not in {"open", "in_progress"}:
+        raise ValueError("Notes can only be added to open or in-progress tickets.")
+
+    details = validate_note(author, message)
+
+    notes = ticket.setdefault("notes", [])
+    next_number = max(
+        (
+            int(note["note_id"][1:])
+            for note in notes
+            if isinstance(note.get("note_id"), str)
+            and note["note_id"].startswith("N")
+            and note["note_id"][1:].isdigit()
+        ),
+        default=0,
+    ) + 1
+
+    note = {
+        "note_id": f"N{next_number:03d}",
+        **details,
+    }
+
+    notes.append(note)
+    return note
+
+
+def add_note(ticket_id, author, message):
+    """Add a note to a saved ticket and persist the change."""
+
+    from campusflow import storage
+
+    tickets = storage.load_tickets(storage.DEFAULT_PATH)
+
+    note = add_note_to_ticket(
+        tickets,
+        ticket_id,
+        author,
+        message,
+    )
+
+    storage.save_tickets(tickets, storage.DEFAULT_PATH)
+
+    return note
+
+
+
+
 def assign_ticket(ticket, staff_member):
     """Assign a ticket to a staff member."""
 
@@ -68,7 +156,10 @@ def get_priority_queue(tickets):
 
 
 def generate_report(tickets):
-    """Summarize tickets by status and priority."""
+    """Summarize tickets by status, priority, and category."""
+
+    categories = ("Network", "Hardware", "Software", "Other")
+    priorities = ("critical", "high", "medium", "low")
 
     report = {
         "total": len(tickets),
@@ -76,13 +167,31 @@ def generate_report(tickets):
             status: 0 for status in VALID_STATUSES
         },
         "by_priority": {
-            priority: 0
-            for priority in ("critical", "high", "medium", "low")
+            priority: 0 for priority in priorities
         },
+        "by_category": {
+            category: 0 for category in categories
+        },
+        "unresolved_count": 0,
+        "resolved_count": 0,
+        "resolution_percentage": 0.0,
     }
 
     for ticket in tickets:
-        report["by_status"][ticket["status"]] += 1
+        status = ticket["status"]
+
+        report["by_status"][status] += 1
         report["by_priority"][ticket["priority"]] += 1
+        report["by_category"][ticket["category"]] += 1
+
+        if status == "resolved":
+            report["resolved_count"] += 1
+        else:
+            report["unresolved_count"] += 1
+
+    if report["total"] > 0:
+        report["resolution_percentage"] = (
+            report["resolved_count"] / report["total"]
+        ) * 100
 
     return report
