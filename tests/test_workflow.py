@@ -12,6 +12,7 @@ def sample_ticket(ticket_id, priority="medium"):
     return {
         "id": ticket_id,
         "title": f"Test ticket {ticket_id}",
+        "category": "Network",
         "priority": priority,
         "status": "open",
         "assigned_to": None,
@@ -100,7 +101,6 @@ class TestReports(unittest.TestCase):
         ]
 
         tickets[1]["status"] = "in_progress"
-
         report = generate_report(tickets)
 
         self.assertEqual(report["total"], 2)
@@ -108,6 +108,36 @@ class TestReports(unittest.TestCase):
         self.assertEqual(report["by_status"]["in_progress"], 1)
         self.assertEqual(report["by_priority"]["critical"], 1)
         self.assertEqual(report["by_priority"]["high"], 1)
+
+    def test_report_counts_categories(self):
+        tickets = [
+            {**sample_ticket("T001", "critical"), "category": "Network"},
+            {**sample_ticket("T002", "high"), "category": "Hardware"},
+        ]
+
+        report = generate_report(tickets)
+
+        self.assertEqual(report["by_category"]["Network"], 1)
+        self.assertEqual(report["by_category"]["Hardware"], 1)
+
+    def test_resolution_percentage(self):
+        tickets = [
+            sample_ticket("T001"),
+            sample_ticket("T002"),
+        ]
+        tickets[0]["status"] = "resolved"
+
+        report = generate_report(tickets)
+
+        self.assertEqual(report["resolved"], 1)
+        self.assertEqual(report["unresolved"], 1)
+        self.assertEqual(report["resolution_percentage"], 50.0)
+
+    def test_empty_report_has_zero_percentage(self):
+        report = generate_report([])
+
+        self.assertEqual(report["total"], 0)
+        self.assertEqual(report["resolution_percentage"], 0.0)
 
 
 if __name__ == "__main__":
