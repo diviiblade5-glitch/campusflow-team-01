@@ -1,0 +1,72 @@
+[
+    {
+        "id": "T001",
+        "title": "keyboad",
+        "category": "Hardware",
+        "urgency": "medium",
+        "affected_users": 6,
+        "priority": "medium",
+        "status": "open",
+        "assigned_to": "joseph"
+    },
+    {
+        "id": "T002",
+        "title": "T002",
+        "category": "Network",
+        "urgency": "low",
+        "affected_users": 6,
+        "priority": "medium",
+        "status": "open",
+        "assigned_to": "divine"
+    },
+    {
+        "id": "T003",
+        "title": "T001",
+        "category": "Software",
+        "urgency": "medium",
+        "affected_users": 9,
+        "priority": "medium",
+        "status": "open",
+        "assigned_to": "mary"
+    },
+    {
+        "id": "T004",
+        "title": "wifi",
+        "category": "Hardware",
+        "urgency": "medium",
+        "affected_users": 9,
+        "priority": "medium",
+        "status": "open",
+        "assigned_to": "faith"
+    },
+    {
+        "id": "T005",
+        "title": "keyboard",
+        "category": "Software",
+        "urgency": "low",
+        "affected_users": 2,
+        "priority": "low",
+        "status": "open",
+        "assigned_to": "peter"
+    },
+    {
+        "id": "T006",
+        "title": "monotor",
+        "category": "Hardware",
+        "urgency": "high",
+        "affected_users": 37,
+        "priority": "critical",
+        "status": "open",
+        "assigned_to": "Grace"
+    },
+    {
+        "id": "T007",
+        "title": "food",
+        "category": "Other",
+        "urgency": "high",
+        "affected_users": 19,
+        "priority": "critical",
+        "status": "in_progress",
+        "assigned_to": null
+    }
+]
