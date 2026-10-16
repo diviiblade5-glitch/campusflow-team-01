@@ -301,13 +301,6 @@ def show_report(tickets):
     for category, count in report["by_category"].items():
         print(f"  {category}: {count}")
 
-    print(f"\nUnresolved tickets: {report['unresolved_count']}")
-    print(f"Resolved tickets: {report['resolved_count']}")
-    print(f"Resolution percentage: {report['resolution_percentage']:.1f}%")
-
-    print(f"\nUnresolved tickets: {report['unresolved']}")
-    print(f"Resolved tickets: {report['resolved']}")
-    print(f"Resolution percentage: {report['resolution_percentage']:.2f}%")
 
 def show_menu():
     """Display the main menu."""
@@ -321,10 +314,10 @@ def show_menu():
     print("6. Generate ticket report")
     print("7. Add a follow-up note")
     print("8. View ticket notes")
-    print("7. Search tickets")
-    print("8. Engineering Understanding Check")
-    print("9. Save tickets")
-    print("10. Exit")
+    print("9. Search tickets")
+    print("10. Engineering Understanding Check")
+    print("11. Save tickets")
+    print("12. Exit")
     print("================================")
 
 def main():
@@ -334,15 +327,15 @@ def main():
 
     except (OSError, ValueError) as error:
         print(f"Could not load saved tickets: {error}")
-        print("Starting with an empty ticket list.")
-        tickets = []
+        print("Please fix the saved data before restarting.")
+        return
 
     print("Welcome to CampusFlow!")
     print(f"Loaded {len(tickets)} ticket(s).")
 
     while True:
         show_menu()
-        choice = input("Choose an option (1-10): ").strip()
+        choice = input("Choose an option (1-12): ").strip()
 
         if choice == "1":
             create_new_ticket(tickets)
@@ -370,23 +363,21 @@ def main():
 
         elif choice == "9":
             save_current_tickets(tickets)
-            print("Tickets saved.")
-
             search_existing_tickets(tickets)
-        elif choice == "8":
+        elif choice == "10":
             run_quiz()
-        elif choice == "9":
+        elif choice == "11":
             save_current_tickets(tickets)
             print("Save requested.")
-        elif choice == "10":
+        elif choice == "12":
             save_current_tickets(tickets)
             print("Tickets saved. Goodbye!")
             break
         else:
-            print("Invalid choice. Please enter a number from 1 to 10.")
+            print("Invalid choice. Please enter a number from 1 to 12.")
 
 
-       
+
 
 if __name__ == "__main__":
     main()
