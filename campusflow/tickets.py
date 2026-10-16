@@ -67,4 +67,5 @@ def create_ticket(title, category, urgency, affected_users, next_id=1):
         ),
         "status": "open",
         "assigned_to": None,
+        "notes": [],
     }

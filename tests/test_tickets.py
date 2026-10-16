@@ -94,5 +94,29 @@ class TestTicketCreation(unittest.TestCase):
         self.assertIsNone(ticket["assigned_to"])
 
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_new_ticket_starts_with_empty_notes(self):
+        ticket = create_ticket(
+            "Wi-Fi issue",
+            "Network",
+            "high",
+            5,
+        )
+
+        self.assertEqual(ticket["notes"], [])
+
+    def test_tickets_have_independent_notes_lists(self):
+        first = create_ticket("Wi-Fi issue", "Network", "high", 5)
+        second = create_ticket("Broken laptop", "Hardware", "low", 2)
+
+        first["notes"].append({
+            "note_id": "N001",
+            "author": "Alex",
+            "message": "Router reboot attempted",
+        })
+
+        self.assertEqual(len(first["notes"]), 1)
+        self.assertEqual(second["notes"], [])
+
+
+    if __name__ == "__main__":
+        unittest.main()
