@@ -7,7 +7,8 @@
         "affected_users": 6,
         "priority": "medium",
         "status": "open",
-        "assigned_to": "joseph"
+        "assigned_to": "joseph",
+        "notes": []
     },
     {
         "id": "T002",
@@ -17,7 +18,8 @@
         "affected_users": 6,
         "priority": "medium",
         "status": "open",
-        "assigned_to": "divine"
+        "assigned_to": "divine",
+        "notes": []
     },
     {
         "id": "T003",
@@ -27,7 +29,8 @@
         "affected_users": 9,
         "priority": "medium",
         "status": "open",
-        "assigned_to": "mary"
+        "assigned_to": "mary",
+        "notes": []
     },
     {
         "id": "T004",
@@ -37,7 +40,8 @@
         "affected_users": 9,
         "priority": "medium",
         "status": "open",
-        "assigned_to": "faith"
+        "assigned_to": "faith",
+        "notes": []
     },
     {
         "id": "T005",
@@ -47,7 +51,8 @@
         "affected_users": 2,
         "priority": "low",
         "status": "open",
-        "assigned_to": "peter"
+        "assigned_to": "peter",
+        "notes": []
     },
     {
         "id": "T006",
@@ -57,7 +62,8 @@
         "affected_users": 37,
         "priority": "critical",
         "status": "open",
-        "assigned_to": "Grace"
+        "assigned_to": "Grace",
+        "notes": []
     },
     {
         "id": "T007",
@@ -66,7 +72,8 @@
         "urgency": "high",
         "affected_users": 19,
         "priority": "critical",
-        "status": "in_progress",
-        "assigned_to": null
+        "status": "open",
+        "assigned_to": null,
+        "notes": []
     }
 ]

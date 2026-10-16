@@ -184,8 +184,8 @@ class TestReports(unittest.TestCase):
 
         report = generate_report(tickets)
 
-        self.assertEqual(report["resolved"], 1)
-        self.assertEqual(report["unresolved"], 1)
+        self.assertEqual(report["resolved_count"], 1)
+        self.assertEqual(report["unresolved_count"], 1)
         self.assertEqual(report["resolution_percentage"], 50.0)
 
     def test_empty_report_has_zero_percentage(self):
